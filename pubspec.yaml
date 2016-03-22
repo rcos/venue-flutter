@@ -2,4 +2,4 @@ name: venue
 description: Create a new Flutter project.
 dependencies:
   flutter:
-    path: /home/seve/lib/flutter/packages/flutter
+    path: ../flutter
