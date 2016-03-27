@@ -1,2 +1,4 @@
 name: venue
 uses-material-design: true
+assets:
+  - assets/empac.jpg
