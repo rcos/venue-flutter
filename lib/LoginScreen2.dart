@@ -19,18 +19,15 @@ class LoginScreen2State extends State<LoginScreen2> {
 
   Widget build(BuildContext context){
     return new Scaffold(
-      appBarHeight: 128.0,
       appBar: new AppBar(
-        flexibleSpace: (BuildContext context) {
-          return new Container(
+          leading: new Container(
             padding: const EdgeInsets.only(left: 16.0, bottom: 24.0),
             height: 128.0,
             child: new Align(
               alignment: const FractionalOffset(0.0, 1.0),
               child: new Text('Venue Login', style: Typography.white.headline)
             )
-          );
-        }
+          )
       ),
       body: new Block(
         padding: const EdgeInsets.all(4.0),
@@ -51,15 +48,17 @@ class LoginScreen2State extends State<LoginScreen2> {
             ),
             new RaisedButton(
               child: new Text("Login"),
-              onPressed: () {
-                Navigator.push(context, new MaterialPageRoute<Null>(
-                  builder: (BuildContext context) => new DashboardScreen2()
-                ));
-              }
+              onPressed: (){ handleLogin(context) }
             )
         ]
       )
     );
+  }
+
+  void handleLogin(context){
+    Navigator.push(context, new MaterialPageRoute<Null>(
+      builder: (BuildContext context) => new DashboardScreen2()
+    ));
   }
 
   void _handleInputChanged(InputValue value, int which) {

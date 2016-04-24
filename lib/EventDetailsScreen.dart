@@ -20,7 +20,6 @@ class EventDetailsScreenState extends State<EventDetailsScreen> {
       ),
       child: new Scaffold(
         key: scaffoldKey,
-        appBarHeight: appBarHeight,
         scrollableKey: scrollableKey,
         appBarBehavior: _appBarBehavior,
         appBar: new AppBar(
@@ -40,28 +39,28 @@ class EventDetailsScreenState extends State<EventDetailsScreen> {
                   _appBarBehavior = value;
                 });
               },
-              items: <PopupMenuItem<AppBarBehavior>>[
-                new PopupMenuItem<AppBarBehavior>(
-                  value: AppBarBehavior.scroll,
-                  child: new Text('AppBar scrolls away')
-                ),
-                new PopupMenuItem<AppBarBehavior>(
-                  value: AppBarBehavior.under,
-                  child: new Text('AppBar stays put')
-                )
-              ]
+              child: new Row(
+                children: <PopupMenuItem<AppBarBehavior>>[
+                  new PopupMenuItem<AppBarBehavior>(
+                    value: AppBarBehavior.scroll,
+                    child: new Text('AppBar scrolls away')
+                  ),
+                  new PopupMenuItem<AppBarBehavior>(
+                    value: AppBarBehavior.under,
+                    child: new Text('AppBar stays put')
+                  )
+                ]
+              )
             )
           ],
-          flexibleSpace: (BuildContext context) {
-            return new FlexibleSpaceBar(
-              title : new Text('Turing the Machine'),
-              image: new AssetImage(
-                name: 'assets/empac.jpg',
-                fit: ImageFit.cover,
-                height: appBarHeight
-              )
-            );
-          }
+          leading: new FlexibleSpaceBar(
+            title : new Text('Turing the Machine'),
+            background: new AssetImage(
+              name: 'assets/empac.jpg',
+              fit: ImageFit.cover,
+              height: appBarHeight
+            )
+          )
         ),
         body: new Block(
           scrollableKey: scrollableKey,

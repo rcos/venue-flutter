@@ -4,19 +4,20 @@ import 'package:flutter/material.dart';
 // import "EventScreen.dart";
 // import "AccountScreen.dart";
 import "LoginScreen2.dart";
-import "EventDetailsScreen.dart";
+// import "EventDetailsScreen.dart";
+
+const API_SERVER = "http://104.131.185.159:9000/";
 
 void main() {
-  runApp(
-    new MaterialApp(
-      title: 'venue',
-      routes: {
-        '/': (BuildContext context) => new EventDetailsScreen(),
-        // '/login': (BuildContext context) => new LoginScreen(),
-        // '/event': (BuildContext context) => new EventScreen(),
-        // '/account': (BuildContext context) => new AccountScreen(),
-        // '/dashboard': (BuildContext context) => new DashboardScreen(),
-      }
-    )
-  );
+
+  // Connect to API
+  
+
+  // Start Application
+  runApp(new MaterialApp(
+    title:"Venue App",
+    routes: {
+      '/': (BuildContext context) => new LoginScreen2()
+    }
+  ));
 }
