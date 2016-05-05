@@ -4,6 +4,7 @@ dependencies:
   flutter:
     path: /home/seve/lib/flutter/packages/flutter
   venue_api_dart:
-    git:
-      url: git@github.com:rcos/venue-api-dart.git
-      branch: flutter
+    path: "/home/seve/workspace/venue-api-dart"
+    # git:
+    #   url: git@github.com:rcos/venue-api-dart.git
+    #   branch: flutter

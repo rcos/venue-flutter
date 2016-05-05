@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-
+import "api.dart";
 import 'DashboardScreen2.dart';
 
 class LoginScreen2 extends StatefulWidget {
@@ -12,13 +12,23 @@ class LoginScreen2 extends StatefulWidget {
 class LoginScreen2State extends State<LoginScreen2> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  @override
+  void initState(){
+    super.initState();
+    // Connect to API
+    connectAPI();
+  }
+
   final List<InputValue> _inputs = <InputValue>[
     InputValue.empty,
     InputValue.empty,
   ];
 
+  @override
   Widget build(BuildContext context){
     return new Scaffold(
+      key: _scaffoldKey,
       appBar: new AppBar(
           leading: new Container(
             padding: const EdgeInsets.only(left: 16.0, bottom: 24.0),
@@ -48,17 +58,41 @@ class LoginScreen2State extends State<LoginScreen2> {
             ),
             new RaisedButton(
               child: new Text("Login"),
-              onPressed: (){ handleLogin(context) }
+              onPressed: (){ handleLogin(context); }
             )
         ]
       )
     );
   }
 
-  void handleLogin(context){
-    Navigator.push(context, new MaterialPageRoute<Null>(
-      builder: (BuildContext context) => new DashboardScreen2()
-    ));
+  void handleLogin(BuildContext context){
+    venueAPI.authenticate(_inputs[0].text, _inputs[1].text)
+      .then((dynamic blank){
+        Navigator.popAndPushNamed(context, "/dashboard");
+      })
+      .catchError((dynamic err){
+        showError(context, "$err");
+      });
+  }
+
+  void showError(BuildContext context, String error){
+    final ThemeData theme = Theme.of(context);
+    final TextStyle dialogTextStyle = theme.textTheme.subhead.copyWith(color: theme.textTheme.caption.color);
+    showDialog(
+      context: context,
+      child: new Dialog(
+        content: new Text(
+          error,
+          style: dialogTextStyle
+        ),
+        actions: <Widget>[
+          new FlatButton(
+            child: new Text('OK'),
+            onPressed: () { Navigator.pop(context); }
+          )
+        ]
+      )
+    );
   }
 
   void _handleInputChanged(InputValue value, int which) {

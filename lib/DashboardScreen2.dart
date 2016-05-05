@@ -1,7 +1,7 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:venue_api_dart/types.dart';
+import "api.dart";
 
 import "EventDetailsScreen.dart";
 
@@ -115,24 +115,26 @@ class DashboardScreen2State extends State<DashboardScreen2> {
   List<EventData> events;
 
   DashboardScreen2State(){
-    events = <EventData>[
-      new EventData(
-        name: "Turing the Machine",
-        description: "Explorations in computation from a truely novel artist.",
-        due: "March 27th"
-      ),
-      new EventData(
-        name: "Turing the Machine",
-        description: "Explorations in computation from a truely novel artist.",
-        due: "March 27th"
-      ),
-      new EventData(
-        name: "Turing the Machine",
-        description: "Explorations in computation from a truely novel artist.",
-        due: "March 27th"
-      )
-    ];
+
+    venueAPI.getMe(withEvents: true, withEventSections: true).then((UserInfo user){
+      // Populate the view
+      setState((){
+        events = new List<EventData>();
+        user.events.forEach((EventInfo event){
+          events.add(new EventData(
+            name: limitString(event.title, 30),
+            description: limitString(event.description,160),
+            due: "March 27th"
+          ));
+        });
+      });
+    });
+
+    events = <EventData>[];
   }
+
+  String limitString(String a, int maxlen) =>
+    a.length < maxlen ? a : a.substring(0, maxlen-3) + "...";
 
   Widget build(BuildContext context) {
     return new Scaffold(
